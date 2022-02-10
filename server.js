@@ -1,13 +1,30 @@
 const express = require('express');
+const mysql = require('mysql');
+const myconn = require('express-myconnection');
+
+const routes = require('./routes')
 
 const app = express();
 app.set('port', process.env.PORT || 3000);
+const dbOptions = {
+  host:'mdb-test.c6vunyturrl6.us-west-1.rds.amazonaws.com',
+  user:'bsale_test',
+  port: '3306',
+  password:'bsale_test',
+  database:'bsale_test'
+}
+
+// middlewares
+
+app.use(myconn(mysql, dbOptions, 'single'))
 
 // routes
 
 app.get('/', (req,res) => {
   res.send('Welcome to Aldos Api')
 })
+
+app.get('/api', routes)
 
 // server running
 
