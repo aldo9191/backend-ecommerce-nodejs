@@ -17,6 +17,7 @@ const dbOptions = {
 // middlewares
 
 app.use(myconn(mysql, dbOptions, 'single'))
+app.use(express.json())
 
 // routes
 
@@ -24,7 +25,7 @@ app.get('/', (req,res) => {
   res.send('Welcome to Aldos Api')
 })
 
-app.get('/api', routes)
+app.use('/api', routes)
 
 // server running
 
